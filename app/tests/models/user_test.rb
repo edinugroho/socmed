@@ -43,5 +43,18 @@ describe User do
                 expect(false).to eq(response)
             end
         end
+
+        context 'when valid' do
+            it 'respond true' do
+                user = User.new
+                user.username = "edi"
+                user.email = "edi@mail.co"
+
+                mock_client = double
+                allow(Mysql2::Client).to receive(:new).and_return(mock_client)
+                expect(mock_client).to receive(:query).with("insert into users (username,email) values ('#{user.username}','#{user.email}')")
+                user.save
+            end
+        end
     end
 end
