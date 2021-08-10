@@ -8,6 +8,13 @@ describe User do
                 response = user.valid?
                 expect(false).to eq(response)
             end
+
+            it 'respond false if email nil' do
+                user = User.new
+                user.username = 'edi'
+                response = user.valid?
+                expect(false).to eq(response)
+            end
         end
     end
 end
