@@ -34,4 +34,14 @@ describe User do
             end
         end
     end
+
+    describe '#insert' do
+        context 'when invalid' do
+            it 'respond false' do
+                user = User.new
+                response = user.save 
+                expect(false).to eq(response)
+            end
+        end
+    end
 end
