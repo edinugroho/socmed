@@ -2,34 +2,34 @@ require_relative '../../models/user.rb'
 
 describe User do
     describe '#validate' do
+        before do
+            @user = User.new
+        end
+
         context 'when invavalid' do
             it 'respond false' do
-                user = User.new
-                response = user.valid?
+                response = @user.valid?
                 expect(false).to eq(response)
             end
 
             it 'respond false if email nil' do
-                user = User.new
-                user.username = 'edi'
-                response = user.valid?
+                @user.username = 'edi'
+                response = @user.valid?
                 expect(false).to eq(response)
             end
 
             it 'respond false if username nil' do
-                user = User.new
-                user.email = 'edi@mail.co'
-                response = user.valid?
+                @user.email = 'edi@mail.co'
+                response = @user.valid?
                 expect(false).to eq(response)
             end
         end
 
         context 'when valid' do
             it 'respond true' do
-                user = User.new
-                user.username = 'edi'
-                user.email = 'edi@mail.co'
-                response = user.valid?
+                @user.username = 'edi'
+                @user.email = 'edi@mail.co'
+                response = @user.valid?
                 expect(true).to eq(response)
             end
         end
