@@ -23,5 +23,15 @@ describe User do
                 expect(false).to eq(response)
             end
         end
+
+        context 'when valid' do
+            it 'respond true' do
+                user = User.new
+                user.username = 'edi'
+                user.email = 'edi@mail.co'
+                response = user.valid?
+                expect(true).to eq(response)
+            end
+        end
     end
 end
