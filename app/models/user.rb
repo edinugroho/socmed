@@ -23,6 +23,17 @@ class User
         end
     end
 
+    def update(user)
+        client = create_db_client
+        query_results = client.query("update user set `username`= '#{user.username}', `email` = '#{user.email}' where id = '#{@id}'")
+        true
+    end
+
+    def delete
+        client = create_db_client
+        query_results = client.query("")
+    end
+
     def valid?
         return false if @username.nil?
         return false if @email.nil?
