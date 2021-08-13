@@ -23,12 +23,19 @@ describe User do
                 response = @user.valid?
                 expect(false).to eq(response)
             end
+            
+            it 'respond false if bio nil' do
+                @user.bio = 'This is bio'
+                response = @user.valid?
+                expect(false).to eq(response)
+            end
         end
 
         context 'when valid' do
             it 'respond true' do
                 @user.username = 'edi'
                 @user.email = 'edi@mail.co'
+                @user.bio = 'This is bio'
                 response = @user.valid?
                 expect(true).to eq(response)
             end
@@ -49,10 +56,11 @@ describe User do
                 user = User.new
                 user.username = "edi"
                 user.email = "edi@mail.co"
+                user.bio = "This is bio"
 
                 mock_client = double
                 allow(Mysql2::Client).to receive(:new).and_return(mock_client)
-                expect(mock_client).to receive(:query).with("insert into users (username,email) values ('#{user.username}','#{user.email}')")
+                expect(mock_client).to receive(:query).with("insert into users (username,email,bio) values ('#{user.username}','#{user.email}','#{user.bio}')")
                 user.save
             end
         end
@@ -100,7 +108,7 @@ describe User do
                 mock_client = double
                 allow(Mysql2::Client).to receive(:new).and_return(mock_client)
                 expect(mock_client).to receive(:query).with("select * from users where id = '#{user.id}'").and_return(user)
-                expect(mock_client).to receive(:query).with("update user set `username`= '#{change_user.username}', `email` = '#{change_user.email}' where id = '#{user.id}'").and_return(true)
+                expect(mock_client).to receive(:query).with("update users set `username`= '#{change_user.username}', `email` = '#{change_user.email}' where id = '#{user.id}'").and_return(true)
                 user.find(1).update(change_user)
             end
         end

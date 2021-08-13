@@ -1,12 +1,12 @@
 require_relative '../../app/db/db_connector.rb'
 
 class User
-    attr_accessor :id, :username, :email
+    attr_accessor :id, :username, :email, :bio
 
     def save
         return false unless valid?
         client = create_db_client
-        client.query("insert into users (username,email) values ('#{@username}','#{@email}')")
+        client.query("insert into users (username,email,bio) values ('#{@username}','#{@email}','#{@bio}')")
         true
     end
 
@@ -38,6 +38,7 @@ class User
     def valid?
         return false if @username.nil?
         return false if @email.nil?
+        return false if @bio.nil?
         true
     end
 end
