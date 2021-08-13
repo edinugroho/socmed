@@ -105,4 +105,19 @@ describe User do
             end
         end
     end
+
+    describe '#delete' do
+        context 'when valid' do
+            it 'respond true' do
+                user = User.new
+                user.id = 1
+                
+                mock_client = double
+                allow(Mysql2::Client).to receive(:new).and_return(mock_client)
+                expect(mock_client).to receive(:query).with("select * from users where id = '#{user.id}'").and_return(user)
+                expect(mock_client).to receive(:query).with("delete from users where id = '#{user.id}'").and_return(true)
+                user.find(1).delete
+            end
+        end
+    end
 end

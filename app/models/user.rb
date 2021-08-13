@@ -31,7 +31,8 @@ class User
 
     def delete
         client = create_db_client
-        query_results = client.query("")
+        query_results = client.query("delete from users where id = '#{@id}'")
+        true
     end
 
     def valid?
