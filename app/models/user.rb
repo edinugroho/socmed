@@ -13,10 +13,14 @@ class User
     def find(id)
         client = create_db_client
         query_results = client.query("select * from users where id = '#{id}'")
-        @id = query_results.id
-        @username = query_results.username
-        @email = query_results.email
-        self
+        if query_results == nil
+            nil
+        else
+            @id = query_results.id
+            @username = query_results.username
+            @email = query_results.email
+            self
+        end
     end
 
     def valid?

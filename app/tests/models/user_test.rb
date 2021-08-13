@@ -59,6 +59,18 @@ describe User do
     end
 
     describe '#find' do
+        context 'when invalid' do
+            it 'respond nil' do
+                user = User.new
+                user.id = 1
+            
+                mock_client = double
+                allow(Mysql2::Client).to receive(:new).and_return(mock_client)
+                expect(mock_client).to receive(:query).with("select * from users where id = '#{user.id}'").and_return(nil)
+                user.find(user.id)
+            end
+        end
+
         context 'when valid' do
             it 'respond self object' do
                 user = User.new
