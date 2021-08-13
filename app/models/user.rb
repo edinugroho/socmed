@@ -10,6 +10,18 @@ class User
         true
     end
 
+    def all
+        client = create_db_client
+        query_results = client.query("select * from users")
+        users = Array.new
+        query_results.each do |data|
+            user = User.new
+            user.username = data.username
+            users.push(user)
+        end
+        users
+    end
+
     def find(id)
         client = create_db_client
         query_results = client.query("select * from users where id = '#{id}'")

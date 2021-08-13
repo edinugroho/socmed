@@ -128,4 +128,40 @@ describe User do
             end
         end
     end
+
+    describe '#all' do
+        context 'when valid' do
+            it 'respond all object user from databases' do
+                user = User.new
+                
+                user_1 = User.new
+                user_1.username = 'edi'
+                user_1.email = 'edi@mail.co'
+                user_1.bio = 'This is edi bio'
+                
+                user_2 = User.new
+                user_2.username = 'dwi'
+                user_2.email = 'dwi@mail.co'
+                user_2.bio = 'This is dwi bio'
+                
+                user_3 = User.new
+                user_3.username = 'nugroho'
+                user_3.email = 'nugroho@mail.co'
+                user_3.bio = 'This is nugroho bio'
+
+                users = [user_1, user_2, user_3]
+
+                mock_client = double
+                allow(Mysql2::Client).to receive(:new).and_return(mock_client)
+                expect(mock_client).to receive(:query).with("select * from users").and_return(users)
+                user.all
+                
+                users.each_with_index do |user, index|
+                    expect(user.username).to eq(users[index].username)
+                    expect(user.email).to eq(users[index].email)
+                    expect(user.bio).to eq(users[index].bio)
+                end
+            end
+        end
+    end
 end
