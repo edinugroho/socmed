@@ -59,6 +59,18 @@ describe User do
     end
 
     describe '#find' do
+        context 'when invalid' do
+            it 'respond nil' do
+                user = User.new
+                user.id = 1
+            
+                mock_client = double
+                allow(Mysql2::Client).to receive(:new).and_return(mock_client)
+                expect(mock_client).to receive(:query).with("select * from users where id = '#{user.id}'").and_return(nil)
+                user.find(user.id)
+            end
+        end
+
         context 'when valid' do
             it 'respond self object' do
                 user = User.new
@@ -70,6 +82,26 @@ describe User do
                 allow(Mysql2::Client).to receive(:new).and_return(mock_client)
                 expect(mock_client).to receive(:query).with("select * from users where id = '#{user.id}'").and_return(user)
                 user.find(user.id)
+            end
+        end
+    end
+
+    describe '#update' do
+        context 'when valid' do
+            it 'respond true' do
+                change_user = User.new
+                change_user.username = 'edi'
+                change_user.email = 'edi@mail.co'
+                
+
+                user = User.new
+                user.id = 1
+                
+                mock_client = double
+                allow(Mysql2::Client).to receive(:new).and_return(mock_client)
+                expect(mock_client).to receive(:query).with("select * from users where id = '#{user.id}'").and_return(user)
+                expect(mock_client).to receive(:query).with("update user set `username`= '#{change_user.username}', `email` = '#{change_user.email}' where id = '#{user.id}'").and_return(true)
+                user.find(1).update(change_user)
             end
         end
     end
