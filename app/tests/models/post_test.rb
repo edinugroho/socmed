@@ -11,6 +11,12 @@ describe 'Post' do
                 response = @post.valid?
                 expect(false).to eq(response)
             end
+
+            it 'respond false if text too long' do
+                @post.body = 'body'*1000
+                response = @post.valid?
+                expect(false).to eq(response)
+            end
         end
     end
 end
