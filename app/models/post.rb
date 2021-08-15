@@ -24,6 +24,12 @@ class Post
         end       
     end
 
+    def update(post)
+        client = create_db_client
+        query_results = client.query("update posts set `body`= '#{post.body}', `attachment` = '#{post.attachment}' where id = '#{@id}'")
+        true
+    end
+
     def valid?
         return false if @body.nil?
         return false if @body.length > 1000
