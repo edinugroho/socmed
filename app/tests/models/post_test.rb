@@ -41,5 +41,19 @@ describe 'Post' do
                 expect(false).to eq(response)
             end
         end
+
+        context 'when valid' do
+            it 'respond true' do
+                post = Post.new
+                post.user_id = 1
+                post.body = "post body"
+                post.attachment = "attachment.jpg"
+                
+                mock_client = double
+                allow(Mysql2::Client).to receive(:new).and_return(mock_client)
+                expect(mock_client).to receive(:query).with("insert into posts (user_id,body,attachment) values ('#{post.user_id}','#{post.body}','#{post.attachment}')")
+                post.save
+            end
+        end
     end
 end
