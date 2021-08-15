@@ -127,4 +127,40 @@ describe 'Post' do
             end
         end
     end
+
+    describe '#all' do
+        context 'when valid' do
+            it 'respond all object post from databases' do
+                post = Post.new
+
+                post_1 = Post.new
+                post_1.user_id = 1
+                post_1.body = "post body 1"
+                post_1.attachment = "attachment1.jpg"
+                
+                post_2 = Post.new
+                post_2.user_id = 1
+                post_2.body = "post body 2"
+                post_2.attachment = "attachment2.jpg"
+                
+                post_3 = Post.new
+                post_3.user_id = 1
+                post_3.body = "post body 3"
+                post_3.attachment = "attachment3.jpg"
+
+                posts = [post_1, post_2, post_3]
+
+                mock_client = double
+                allow(Mysql2::Client).to receive(:new).and_return(mock_client)
+                expect(mock_client).to receive(:query).with("select * from posts").and_return(posts)
+                post.all
+                
+                posts.each_with_index do |post, index|
+                    expect(post.user_id).to eq(posts[index].user_id)
+                    expect(post.body).to eq(posts[index].body)
+                    expect(post.attachment).to eq(posts[index].attachment)
+                end
+            end
+        end
+    end
 end

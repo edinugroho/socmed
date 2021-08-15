@@ -10,6 +10,20 @@ class Post
         true
     end
 
+    def all
+        client = create_db_client
+        query_results = client.query("select * from posts")
+        posts = Array.new
+        query_results.each do |data|
+            post = Post.new
+            post.user_id = data.user_id
+            post.body = data.body
+            post.attachment = data.attachment
+            posts.push(post)
+        end
+        posts
+    end
+
     def find(id)
         client = create_db_client
         query_results = client.query("select * from posts where id = '#{id}'")
