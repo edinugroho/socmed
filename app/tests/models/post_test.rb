@@ -56,4 +56,20 @@ describe 'Post' do
             end
         end
     end
+
+    describe '#find' do
+        context 'when invalid' do
+            it 'respond false' do
+                post = Post.new
+                post.id = 1
+
+                mock_client = double
+                allow(Mysql2::Client).to receive(:new).and_return(mock_client)
+                expect(mock_client).to receive(:query).with("select * from posts where id = '#{post.id}'").and_return(nil)
+                response = post.find(post.id)
+
+                expect(nil).to eq(response)
+            end
+        end
+    end
 end

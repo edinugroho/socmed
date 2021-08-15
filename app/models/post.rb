@@ -10,6 +10,20 @@ class Post
         true
     end
 
+    def find(id)
+        client = create_db_client
+        query_results = client.query("select * from posts where id = '#{id}'")
+        if query_results == nil
+            nil
+        else
+            @id = query_results.id
+            @user_id = query_results.user_id
+            @body = query_results.body
+            @attachment = query_results.attachment
+            self
+        end       
+    end
+
     def valid?
         return false if @body.nil?
         return false if @body.length > 1000
