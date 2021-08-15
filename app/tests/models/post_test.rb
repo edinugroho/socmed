@@ -71,5 +71,22 @@ describe 'Post' do
                 expect(nil).to eq(response)
             end
         end
+
+        context 'when valid' do
+            it 'respond self object' do
+                post = Post.new
+                post.id = 1
+                post.user_id = 1
+                post.body = "post body"
+                post.attachment = "attachment.jpg"
+
+                mock_client = double
+                allow(Mysql2::Client).to receive(:new).and_return(mock_client)
+                expect(mock_client).to receive(:query).with("select * from posts where id = '#{post.id}'").and_return(post)
+                response = post.find(post.id)
+
+                expect(post).to eq(response)
+            end
+        end
     end
 end
