@@ -30,6 +30,12 @@ class Post
         true
     end
 
+    def delete
+        client = create_db_client
+        query_results = client.query("delete from posts where id = '#{@id}'")
+        true
+    end
+
     def valid?
         return false if @body.nil?
         return false if @body.length > 1000
