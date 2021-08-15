@@ -23,5 +23,13 @@ describe 'Post' do
                 expect(false).to eq(response)
             end
         end
+
+        context 'when valid' do
+            it 'respond true' do
+                @post.body = "post body"
+                response = @post.valid?
+                expect(true).to eq(response)
+            end
+        end
     end
 end
