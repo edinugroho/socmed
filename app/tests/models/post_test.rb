@@ -32,4 +32,14 @@ describe 'Post' do
             end
         end
     end
+
+    describe '#insert' do
+        context 'when invalid' do
+            it 'respond false' do
+                post = Post.new
+                response = post.save
+                expect(false).to eq(response)
+            end
+        end
+    end
 end

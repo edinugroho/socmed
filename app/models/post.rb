@@ -1,6 +1,10 @@
 class Post
     attr_accessor :id, :user_id, :body, :attachment
 
+    def save
+        false
+    end
+
     def valid?
         return false if @body.nil?
         return false if @body.length > 1000
