@@ -72,5 +72,20 @@ describe 'Hashtag' do
                 expect(response).to eq(nil)
             end
         end
+
+        context 'when valid' do
+            it 'respond self object' do
+                hashtag = Hashtag.new
+                hashtag.id = 1
+                hashtag.name = '#hashtag'
+
+                mock_client = double
+                allow(Mysql2::Client).to receive(:new).and_return(mock_client)
+                expect(mock_client).to receive(:query).with("select * from hashtags where id = '#{hashtag.id}'").and_return(hashtag)
+                response = hashtag.find(hashtag.id)
+                
+                expect(response).to eq(hashtag)
+            end
+        end
     end
 end
