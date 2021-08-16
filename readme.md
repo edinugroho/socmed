@@ -2,9 +2,9 @@
 
 Final task for #GenerasiGigih 2021
 
-# Problem
+### Problem
 
-# Prerequisites
+### Prerequisites
 
  - ruby
  - sinatra
@@ -12,7 +12,7 @@ Final task for #GenerasiGigih 2021
  - rspec
  - simplecov
  
-# How to run
+### How to run
 
  - bundler install
  - rspec --pattern=spec/models/*_spec.rb -fd
