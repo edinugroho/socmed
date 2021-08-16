@@ -24,5 +24,14 @@ describe HashtagPost do
                 expect(false).to eq(response)
             end
         end
+        
+        context 'when valid' do
+            it 'respind true' do
+                @hashtag_post.post_id = 1
+                @hashtag_post.hashtag_id = 1
+                response = @hashtag_post.valid?
+                expect(true).to eq(response)
+            end
+        end
     end
 end
