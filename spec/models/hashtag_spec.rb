@@ -24,5 +24,13 @@ describe 'Hashtag' do
                 expect(response).to eq(false)
             end
         end
+
+        context 'when valid' do
+            it 'respond true' do
+                @hashtag.name = "#hashtag coba"
+                response = @hashtag.valid?
+                expect(response).to eq(true)
+            end
+        end
     end
 end
