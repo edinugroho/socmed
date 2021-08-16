@@ -34,4 +34,14 @@ describe HashtagPost do
             end
         end
     end
+
+    describe '#insert' do
+        context 'when invalid' do
+            it 'respond false' do
+                hashtag_post = HashtagPost.new
+                response = hashtag_post.save 
+                expect(false).to eq(response)
+            end
+        end
+    end
 end
