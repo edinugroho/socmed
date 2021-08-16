@@ -1,5 +1,8 @@
 class Hashtag
+    attr_accessor :id, :name
     def valid?
-        false
+        return false if @name.nil?
+        return false if @name[0] != '#'
+        true
     end
 end

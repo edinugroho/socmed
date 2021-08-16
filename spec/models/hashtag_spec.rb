@@ -11,6 +11,12 @@ describe 'Hashtag' do
                 response = @hashtag.valid?
                 expect(false).to eq(response)
             end
+            
+            it 'respond false if first character not #' do
+                @hashtag.name = 'hashtag'
+                response = @hashtag.valid?
+                expect(response).to eq(false)
+            end
         end
     end
 end
