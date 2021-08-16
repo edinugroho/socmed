@@ -1,4 +1,4 @@
-require_relative '../../models/hashtag.rb'
+require_relative '../../app/models/hashtag.rb'
 
 describe 'Hashtag' do
     describe '#validate' do
