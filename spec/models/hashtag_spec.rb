@@ -125,4 +125,32 @@ describe 'Hashtag' do
             end
         end
     end
+
+    describe '#all' do
+        context 'when valid' do
+            it 'respond all object hashtag from databases' do
+                hashtag = Hashtag.new
+                
+                hashtag_1 = Hashtag.new
+                hashtag_1.name = '#hashtag1'
+                
+                hashtag_2 = Hashtag.new
+                hashtag_2.name = '#hashtag2'
+                
+                hashtag_3 = Hashtag.new
+                hashtag_3.name = '#hashtag3'
+
+                hashtags = [hashtag_1, hashtag_2, hashtag_3]
+
+                mock_client = double
+                allow(Mysql2::Client).to receive(:new).and_return(mock_client)
+                expect(mock_client).to receive(:query).with("select * from hashtags").and_return(hashtags)
+                hashtag.all
+                
+                hashtags.each_with_index do |hashtag, index|
+                    expect(hashtag.name).to eq(hashtags[index].name)
+                end
+            end
+        end
+    end
 end
