@@ -22,6 +22,12 @@ class Hashtag
         end 
     end
 
+    def update(hashtag)
+        client = create_db_client
+        query_results = client.query("update hashtags set `name`= '#{hashtag.name}' where id = '#{@id}'")
+        true
+    end
+
     def valid?
         return false if @name.nil? 
         !!@name.match(/(\#[a-zA-Z0-9]+\b)/)

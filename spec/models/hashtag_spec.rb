@@ -88,4 +88,24 @@ describe 'Hashtag' do
             end
         end
     end
+
+    describe '#update' do
+        context 'when valid' do
+            it 'respond true' do
+                change_hashtag = Hashtag.new
+                change_hashtag.name = '#newHashtag'
+
+                hashtag = Hashtag.new
+                hashtag.id = 1
+                
+                mock_client = double
+                allow(Mysql2::Client).to receive(:new).and_return(mock_client)
+                expect(mock_client).to receive(:query).with("select * from hashtags where id = '#{hashtag.id}'").and_return(hashtag)
+                expect(mock_client).to receive(:query).with("update hashtags set `name`= '#{change_hashtag.name}' where id = '#{hashtag.id}'").and_return(true)
+                response = hashtag.find(1).update(change_hashtag)
+
+                expect(response).to eq(true)
+            end
+        end
+    end
 end
