@@ -17,6 +17,12 @@ describe HashtagPost do
                 response = @hashtag_post.valid?
                 expect(false).to eq(response)
             end
+            
+            it 'respond false if hashtag_id nil' do
+                @hashtag_post.post_id = 1
+                response = @hashtag_post.valid?
+                expect(false).to eq(response)
+            end
         end
     end
 end
