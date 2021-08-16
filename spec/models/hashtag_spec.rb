@@ -33,4 +33,14 @@ describe 'Hashtag' do
             end
         end
     end
+
+    describe '#insert' do
+        context 'when invalid' do
+            it 'respond false' do
+                hashtag = Hashtag.new
+                response = hashtag.save
+                expect(response).to eq(false)
+            end
+        end
+    end
 end
