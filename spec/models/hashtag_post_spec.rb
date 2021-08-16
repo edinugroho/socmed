@@ -43,5 +43,20 @@ describe HashtagPost do
                 expect(false).to eq(response)
             end
         end
+
+        context 'when valid' do
+            it 'respond true' do
+                hashtag_post = HashtagPost.new
+                hashtag_post.post_id = 1
+                hashtag_post.hashtag_id = 1
+
+                mock_client = double
+                allow(Mysql2::Client).to receive(:new).and_return(mock_client)
+                expect(mock_client).to receive(:query).with("insert into hashtag_posts (post_id,hashtag_id) values ('#{hashtag_post.post_id}','#{hashtag_post.hashtag_id}')")
+                response = hashtag_post.save
+
+                expect(response).to eq(true)
+            end
+        end
     end
 end
