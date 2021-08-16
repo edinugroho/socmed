@@ -1,8 +1,13 @@
+require_relative '../../app/db/db_connector.rb'
+
 class Hashtag
     attr_accessor :id, :name
     
     def save
         return false unless valid? 
+        client = create_db_client
+        client.query("insert into hashtag (name) values ('#{@name}')")
+        true
     end
 
     def valid?

@@ -42,5 +42,19 @@ describe 'Hashtag' do
                 expect(response).to eq(false)
             end
         end
+
+        context 'when valid' do
+            it 'respond true' do
+                hashtag = Hashtag.new
+                hashtag.name = '#hashtag'
+
+                mock_client = double
+                allow(Mysql2::Client).to receive(:new).and_return(mock_client)
+                expect(mock_client).to receive(:query).with("insert into hashtag (name) values ('#{hashtag.name}')").and_return(true)
+                response = hashtag.save
+
+                expect(response).to eq(true)
+            end
+        end
     end
 end
