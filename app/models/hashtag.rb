@@ -6,7 +6,7 @@ class Hashtag
     def save
         return false unless valid? 
         client = create_db_client
-        client.query("insert into hashtag (name) values ('#{@name}')")
+        client.query("insert into hashtags (name) values ('#{@name}')")
         true
     end
 

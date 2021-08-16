@@ -50,7 +50,7 @@ describe 'Hashtag' do
 
                 mock_client = double
                 allow(Mysql2::Client).to receive(:new).and_return(mock_client)
-                expect(mock_client).to receive(:query).with("insert into hashtag (name) values ('#{hashtag.name}')").and_return(true)
+                expect(mock_client).to receive(:query).with("insert into hashtags (name) values ('#{hashtag.name}')").and_return(true)
                 response = hashtag.save
 
                 expect(response).to eq(true)
