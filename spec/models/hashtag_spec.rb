@@ -17,6 +17,12 @@ describe 'Hashtag' do
                 response = @hashtag.valid?
                 expect(response).to eq(false)
             end
+            
+            it 'respond false if contain space' do
+                @hashtag.name = 'hashtag with space'
+                response = @hashtag.valid?
+                expect(response).to eq(false)
+            end
         end
     end
 end
