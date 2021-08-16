@@ -28,6 +28,12 @@ class Hashtag
         true
     end
 
+    def delete
+        client = create_db_client
+        query_results = client.query("delete from hashtags where id = '#{@id}'")
+        true
+    end
+
     def valid?
         return false if @name.nil? 
         !!@name.match(/(\#[a-zA-Z0-9]+\b)/)
