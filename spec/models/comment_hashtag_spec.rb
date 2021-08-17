@@ -112,4 +112,21 @@ describe CommentHashtag do
             end
         end
     end
+
+    describe '#delete' do
+        context 'when valid' do
+            it 'respond true' do
+                comment_hashtag = CommentHashtag.new
+                comment_hashtag.id = 1
+                
+                mock_client = double
+                allow(Mysql2::Client).to receive(:new).and_return(mock_client)
+                expect(mock_client).to receive(:query).with("select * from comment_hashtags where id = '#{comment_hashtag.id}'").and_return(comment_hashtag)
+                expect(mock_client).to receive(:query).with("delete from comment_hashtags where id = '#{comment_hashtag.id}'").and_return(true)
+                response = comment_hashtag.find(1).delete
+                
+                expect(response).to eq(true)
+            end
+        end
+    end
 end

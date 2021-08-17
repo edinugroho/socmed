@@ -23,6 +23,12 @@ class CommentHashtag
         end 
     end
     
+    def delete
+        client = create_db_client
+        query_results = client.query("delete from comment_hashtags where id = '#{@id}'")
+        true
+    end
+
     def update(comment_hashtag)
         client = create_db_client
         query_results = client.query("update comment_hashtags set `comment_id`= '#{comment_hashtag.comment_id}', `hashtag_id` = '#{comment_hashtag.hashtag_id}' where id = '#{@id}'")
