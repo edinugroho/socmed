@@ -11,6 +11,12 @@ describe CommentHashtag do
                 response = @comment_hashtag.valid?
                 expect(false).to eq(response)
             end
+
+            it 'respond false if comment_id nil' do
+                @comment_hashtag.hashtag_id = 1
+                response = @comment_hashtag.valid?
+                expect(false).to eq(response)
+            end
         end
     end
 end
