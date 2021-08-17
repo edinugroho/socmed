@@ -91,4 +91,25 @@ describe CommentHashtag do
             end
         end
     end
+
+    describe '#update' do
+        context 'when valid' do
+            it 'respond true' do
+                change_comment_hashtag = CommentHashtag.new
+                change_comment_hashtag.comment_id = 1
+                change_comment_hashtag.hashtag_id = 1
+
+                comment_hashtag = CommentHashtag.new
+                comment_hashtag.id = 1
+                
+                mock_client = double
+                allow(Mysql2::Client).to receive(:new).and_return(mock_client)
+                expect(mock_client).to receive(:query).with("select * from comment_hashtags where id = '#{comment_hashtag.id}'").and_return(comment_hashtag)
+                expect(mock_client).to receive(:query).with("update comment_hashtags set `comment_id`= '#{change_comment_hashtag.comment_id}', `hashtag_id` = '#{change_comment_hashtag.hashtag_id}' where id = '#{comment_hashtag.id}'").and_return(true)
+                response = comment_hashtag.find(1).update(change_comment_hashtag)
+
+                expect(response).to eq(true)
+            end
+        end
+    end
 end
