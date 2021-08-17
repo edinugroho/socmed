@@ -12,12 +12,13 @@ class HashtagPost
 
     def find(id)
         client = create_db_client
-        query_results = client.query("select * from hashtags where id = '#{id}'")
+        query_results = client.query("select * from hashtag_posts where id = '#{id}'")
         if query_results == nil
             nil
         else
             @id = query_results.id
-            @name = query_results.name
+            @post_id = query_results.post_id
+            @hashtag_id = query_results.hashtag_id
             self
         end 
     end

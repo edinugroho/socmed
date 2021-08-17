@@ -68,10 +68,26 @@ describe HashtagPost do
 
                 mock_client = double
                 allow(Mysql2::Client).to receive(:new).and_return(mock_client)
-                expect(mock_client).to receive(:query).with("select * from hashtags where id = '#{hashtag_post.id}'").and_return(nil)
+                expect(mock_client).to receive(:query).with("select * from hashtag_posts where id = '#{hashtag_post.id}'").and_return(nil)
                 response = hashtag_post.find(hashtag_post.id)
 
                 expect(response).to eq(nil)
+            end
+        end
+
+        context 'when valid' do
+            it 'respond self object' do
+                hashtag_post = HashtagPost.new
+                hashtag_post.id = 1
+                hashtag_post.post_id = 1
+                hashtag_post.hashtag_id = 1
+
+                mock_client = double
+                allow(Mysql2::Client).to receive(:new).and_return(mock_client)
+                expect(mock_client).to receive(:query).with("select * from hashtag_posts where id = '#{hashtag_post.id}'").and_return(hashtag_post)
+                response = hashtag_post.find(hashtag_post.id)
+                
+                expect(response).to eq(hashtag_post)
             end
         end
     end
