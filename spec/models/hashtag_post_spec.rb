@@ -91,4 +91,25 @@ describe HashtagPost do
             end
         end
     end
+
+    describe '#update' do
+        context 'when valid' do
+            it 'respond true' do
+                change_hashtag_post = HashtagPost.new
+                change_hashtag_post.post_id = 1
+                change_hashtag_post.hashtag_id = 1
+
+                hashtag_post = HashtagPost.new
+                hashtag_post.id = 1
+                
+                mock_client = double
+                allow(Mysql2::Client).to receive(:new).and_return(mock_client)
+                expect(mock_client).to receive(:query).with("select * from hashtag_posts where id = '#{hashtag_post.id}'").and_return(hashtag_post)
+                expect(mock_client).to receive(:query).with("update hashtag_posts set `post_id`= '#{change_hashtag_post.post_id}', `hashtag_id` = '#{change_hashtag_post.hashtag_id}' where id = '#{hashtag_post.id}'").and_return(true)
+                response = hashtag_post.find(1).update(change_hashtag_post)
+
+                expect(response).to eq(true)
+            end
+        end
+    end
 end

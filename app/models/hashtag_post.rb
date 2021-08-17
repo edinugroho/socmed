@@ -23,6 +23,12 @@ class HashtagPost
         end 
     end
 
+    def update(hashtag_post)
+        client = create_db_client
+        query_results = client.query("update hashtag_posts set `post_id`= '#{hashtag_post.post_id}', `hashtag_id` = '#{hashtag_post.hashtag_id}' where id = '#{@id}'")
+        true
+    end
+
     def valid?
         return false if @post_id.nil?
         return false if @hashtag_id.nil?
