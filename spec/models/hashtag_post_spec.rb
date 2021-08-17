@@ -59,4 +59,20 @@ describe HashtagPost do
             end
         end
     end
+    
+    describe '#find' do
+        context 'when invalid' do
+            it 'respond nil' do
+                hashtag_post = HashtagPost.new
+                hashtag_post.id = 1
+
+                mock_client = double
+                allow(Mysql2::Client).to receive(:new).and_return(mock_client)
+                expect(mock_client).to receive(:query).with("select * from hashtags where id = '#{hashtag_post.id}'").and_return(nil)
+                response = hashtag_post.find(hashtag_post.id)
+
+                expect(response).to eq(nil)
+            end
+        end
+    end
 end
