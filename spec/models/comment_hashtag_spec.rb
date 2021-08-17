@@ -43,5 +43,20 @@ describe CommentHashtag do
                 expect(false).to eq(response)
             end
         end
+
+        context 'when valid' do
+            it 'respond true' do
+                comment_hashtag = CommentHashtag.new
+                comment_hashtag.comment_id = 1
+                comment_hashtag.hashtag_id = 1
+
+                mock_client = double
+                allow(Mysql2::Client).to receive(:new).and_return(mock_client)
+                expect(mock_client).to receive(:query).with("insert into comment_hashtags (comment_id,hashtag_id) values ('#{comment_hashtag.comment_id}','#{comment_hashtag.hashtag_id}')")
+                response = comment_hashtag.save
+
+                expect(response).to eq(true)
+            end
+        end
     end
 end
