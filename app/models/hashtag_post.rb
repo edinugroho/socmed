@@ -29,6 +29,12 @@ class HashtagPost
         true
     end
 
+    def delete
+        client = create_db_client
+        query_results = client.query("delete from hashtag_posts where id = '#{@id}'")
+        true
+    end
+
     def valid?
         return false if @post_id.nil?
         return false if @hashtag_id.nil?

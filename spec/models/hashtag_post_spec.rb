@@ -112,4 +112,21 @@ describe HashtagPost do
             end
         end
     end
+
+    describe '#delete' do
+        context 'when valid' do
+            it 'respond true' do
+                hashtag_post = HashtagPost.new
+                hashtag_post.id = 1
+                
+                mock_client = double
+                allow(Mysql2::Client).to receive(:new).and_return(mock_client)
+                expect(mock_client).to receive(:query).with("select * from hashtag_posts where id = '#{hashtag_post.id}'").and_return(hashtag_post)
+                expect(mock_client).to receive(:query).with("delete from hashtag_posts where id = '#{hashtag_post.id}'").and_return(true)
+                response = hashtag_post.find(1).delete
+                
+                expect(response).to eq(true)
+            end
+        end
+    end
 end
