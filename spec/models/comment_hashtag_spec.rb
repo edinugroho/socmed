@@ -129,4 +129,36 @@ describe CommentHashtag do
             end
         end
     end
+
+    describe '#all' do
+        context 'when valid' do
+            it 'respond all object comment hashtag from databases' do
+                comment_hashtag = CommentHashtag.new
+                
+                comment_hashtag_1 = CommentHashtag.new
+                comment_hashtag_1.comment_id = 1
+                comment_hashtag_1.hashtag_id = 1
+                
+                comment_hashtag_2 = CommentHashtag.new
+                comment_hashtag_2.comment_id = 1
+                comment_hashtag_2.hashtag_id = 2
+                
+                comment_hashtag_3 = CommentHashtag.new
+                comment_hashtag_3.comment_id = 1
+                comment_hashtag_3.hashtag_id = 3
+
+                comment_hashtags = [comment_hashtag_1, comment_hashtag_2, comment_hashtag_3]
+
+                mock_client = double
+                allow(Mysql2::Client).to receive(:new).and_return(mock_client)
+                expect(mock_client).to receive(:query).with("select * from comment_hashtags").and_return(comment_hashtags)
+                comment_hashtag.all
+                
+                comment_hashtags.each_with_index do |comment_hashtag, index|
+                    expect(comment_hashtag.comment_id).to eq(comment_hashtags[index].comment_id)
+                    expect(comment_hashtag.hashtag_id).to eq(comment_hashtags[index].hashtag_id)
+                end
+            end
+        end
+    end
 end

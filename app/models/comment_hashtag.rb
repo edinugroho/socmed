@@ -10,6 +10,19 @@ class CommentHashtag
         true
     end
 
+    def all
+        client = create_db_client
+        query_results = client.query("select * from comment_hashtags")
+        comment_hashtags = Array.new
+        query_results.each do |data|
+            comment_hashtag = CommentHashtag.new
+            comment_hashtag.comment_id = data.comment_id
+            comment_hashtag.hashtag_id = data.hashtag_id
+            comment_hashtags.push(comment_hashtag)
+        end
+        comment_hashtags
+    end
+
     def find(id)
         client = create_db_client
         query_results = client.query("select * from comment_hashtags where id = '#{id}'")
