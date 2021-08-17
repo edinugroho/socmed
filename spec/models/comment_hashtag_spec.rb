@@ -34,4 +34,14 @@ describe CommentHashtag do
             end
         end
     end
+
+    describe '#insert' do
+        context 'when invalid' do
+            it 'respond false' do
+                comment_hashtag = CommentHashtag.new
+                response = comment_hashtag.save 
+                expect(false).to eq(response)
+            end
+        end
+    end
 end
