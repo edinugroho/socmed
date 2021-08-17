@@ -24,5 +24,14 @@ describe CommentHashtag do
                 expect(false).to eq(response)
             end
         end
+
+        context 'when valid' do
+            it 'respind true' do
+                @comment_hashtag.comment_id = 1
+                @comment_hashtag.hashtag_id = 1
+                response = @comment_hashtag.valid?
+                expect(true).to eq(response)
+            end
+        end
     end
 end
