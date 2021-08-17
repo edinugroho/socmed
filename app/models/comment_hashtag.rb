@@ -3,6 +3,7 @@ class CommentHashtag
 
     def valid?
         return false if @comment_id.nil?
+        return false if @hashtag_id.nil?
         true
     end
 end
