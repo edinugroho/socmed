@@ -129,4 +129,36 @@ describe HashtagPost do
             end
         end
     end
+
+    describe '#all' do
+        context 'when valid' do
+            it 'respond all object hashtag post from databases' do
+                hashtag_post = HashtagPost.new
+                
+                hashtag_post_1 = HashtagPost.new
+                hashtag_post_1.post_id = 1
+                hashtag_post_1.hashtag_id = 1
+                
+                hashtag_post_2 = HashtagPost.new
+                hashtag_post_2.post_id = 1
+                hashtag_post_2.hashtag_id = 2
+                
+                hashtag_post_3 = HashtagPost.new
+                hashtag_post_3.post_id = 1
+                hashtag_post_3.hashtag_id = 3
+
+                hashtag_posts = [hashtag_post_1, hashtag_post_2, hashtag_post_3]
+
+                mock_client = double
+                allow(Mysql2::Client).to receive(:new).and_return(mock_client)
+                expect(mock_client).to receive(:query).with("select * from hashtag_posts").and_return(hashtag_posts)
+                hashtag_post.all
+                
+                hashtag_posts.each_with_index do |hashtag_post, index|
+                    expect(hashtag_post.post_id).to eq(hashtag_posts[index].post_id)
+                    expect(hashtag_post.hashtag_id).to eq(hashtag_posts[index].hashtag_id)
+                end
+            end
+        end
+    end
 end

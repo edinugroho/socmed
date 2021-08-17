@@ -10,6 +10,19 @@ class HashtagPost
         true
     end
 
+    def all
+        client = create_db_client
+        query_results = client.query("select * from hashtag_posts")
+        hashtag_posts = Array.new
+        query_results.each do |data|
+            hashtag_post = HashtagPost.new
+            hashtag_post.post_id = data.post_id
+            hashtag_post.hashtag_id = data.hashtag_id
+            hashtag_posts.push(hashtag_post)
+        end
+        hashtag_posts
+    end
+
     def find(id)
         client = create_db_client
         query_results = client.query("select * from hashtag_posts where id = '#{id}'")
