@@ -104,6 +104,7 @@ CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `bio` varchar(255) COLLATE utf8mb4_unicode_ci NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
