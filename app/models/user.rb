@@ -15,9 +15,7 @@ class User
         query_results = client.query("select * from users")
         users = Array.new
         query_results.each do |data|
-            user = User.new
-            user.username = data.username
-            users.push(user)
+            users.push(data)
         end
         users
     end
