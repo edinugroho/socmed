@@ -35,6 +35,17 @@ describe UserController do
 
                 expect(response).to eq(false.to_json)
             end
+            
+            it 'respond false if bio nil' do
+                user_controller = UserController.new
+                user = { 
+                    :username => 'edi',
+                    :email => 'edi@mail.co'
+                }
+                response = user_controller.store(user.to_json)
+
+                expect(response).to eq(false.to_json)
+            end
         end
 
         context 'when valid' do
