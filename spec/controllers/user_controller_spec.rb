@@ -18,12 +18,12 @@ describe UserController do
                 user_controller = UserController.new
                 user = { 
                     :username => 'edi', 
-                    :email => 'edi@mail.co'
+                    :email => 'edi@mail.co',
+                    :bio => 'This is bio'
                 }
+                response = user_controller.store(user.to_json)
 
-                allow(user_controller).to receive(:store).with(user).and_return(true.to_json)
-
-                expect(user_controller.store(user)).to eq(true.to_json)
+                expect(response).to eq(true.to_json)
             end
         end
     end
