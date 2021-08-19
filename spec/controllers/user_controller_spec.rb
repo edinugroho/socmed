@@ -28,4 +28,20 @@ describe UserController do
             end
         end
     end
+
+    describe '#store' do
+        context 'when valid' do
+            it 'respond true' do
+                user_controller = UserController.new
+                user = { 
+                    :username => 'edi', 
+                    :email => 'edi@mail.co'
+                }
+
+                allow(user_controller).to receive(:store).with(user).and_return(true.to_json)
+
+                expect(user_controller.store(user)).to eq(true.to_json)
+            end
+        end
+    end
 end
