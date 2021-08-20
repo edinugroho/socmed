@@ -62,7 +62,7 @@ describe UserController do
             end
         end
     end
-    
+
     describe '#show' do
         context 'when valid' do
             it 'respond user' do
@@ -70,6 +70,22 @@ describe UserController do
                 response = user_controller.show(1)
 
                 expect(response).to eq(user_controller.show(1))
+            end
+        end
+    end
+    
+    describe '#update' do
+        context 'when valid' do
+            it 'respond true' do
+                user_controller = UserController.new
+                user = {
+                    "username" => "edas edited",
+                    "email" => "edas@mail.co",
+                    "bio" => "This is bio"
+                }
+                response = user_controller.update(1, user)
+
+                expect(response).to eq(true.to_json)
             end
         end
     end

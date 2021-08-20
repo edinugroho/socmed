@@ -20,4 +20,12 @@ class UserController
         user = User.new
         user.find(id).to_json
     end
+
+    def update(id, params)
+        user = User.new
+        user.username = params['username']
+        user.email = params['email']
+        user.bio = params['bio']
+        user.update(id, user).to_json
+    end
 end

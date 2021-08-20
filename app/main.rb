@@ -20,3 +20,9 @@ get '/user/:id' do
     user_controller = UserController.new
     user_controller.show(params['id'])
 end
+
+put '/user/:id' do
+    user_controller = UserController.new
+    body = JSON.parse(request.body.read)
+    user_controller.update(params['id'], body)
+end
