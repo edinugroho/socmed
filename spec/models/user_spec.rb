@@ -110,7 +110,7 @@ describe User do
                 
                 mock_client = double
                 allow(Mysql2::Client).to receive(:new).and_return(mock_client)
-                expect(mock_client).to receive(:query).with("update users set `username`= '#{change_user.username}', `email` = '#{change_user.email}' where id = '#{user.id}'").and_return(true)
+                expect(mock_client).to receive(:query).with("update users set `username`= '#{change_user.username}', `email` = '#{change_user.email}', `bio` = '#{change_user.bio}' where id = '#{user.id}'").and_return(true)
                 user.update(user.id, change_user)
             end
         end

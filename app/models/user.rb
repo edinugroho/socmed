@@ -32,7 +32,7 @@ class User
 
     def update(id, user)
         client = create_db_client
-        query_results = client.query("update users set `username`= '#{user.username}', `email` = '#{user.email}' where id = '#{id}'")
+        query_results = client.query("update users set `username`= '#{user.username}', `email` = '#{user.email}', `bio` = '#{user.bio}' where id = '#{id}'")
         true
     end
 
