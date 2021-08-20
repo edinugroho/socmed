@@ -26,22 +26,19 @@ class User
         if query_results == nil
             nil
         else
-            @id = query_results.id
-            @username = query_results.username
-            @email = query_results.email
-            self
+            query_results.each
         end
     end
 
-    def update(user)
+    def update(id, user)
         client = create_db_client
-        query_results = client.query("update users set `username`= '#{user.username}', `email` = '#{user.email}' where id = '#{@id}'")
+        query_results = client.query("update users set `username`= '#{user.username}', `email` = '#{user.email}' where id = '#{id}'")
         true
     end
 
-    def delete
+    def destroy(id)
         client = create_db_client
-        query_results = client.query("delete from users where id = '#{@id}'")
+        query_results = client.query("delete from users where id = '#{id}'")
         true
     end
 

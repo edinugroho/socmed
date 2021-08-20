@@ -82,13 +82,17 @@ describe User do
         context 'when valid' do
             it 'respond self object' do
                 user = User.new
-                user.id = 1 
-                user.username = 'edi'
-                user.email = 'edi@mail.co'
+                array_user = Array.new
+                expect_user = {
+                    "id" => 1,
+                    "username" => 'edi',
+                    "email" => 'edi@mail.co'
+                }
+                array_user.push(expect_user)
             
                 mock_client = double
                 allow(Mysql2::Client).to receive(:new).and_return(mock_client)
-                expect(mock_client).to receive(:query).with("select * from users where id = '#{user.id}'").and_return(user)
+                expect(mock_client).to receive(:query).with("select * from users where id = '#{user.id}'").and_return(array_user)
                 user.find(user.id)
             end
         end
@@ -101,15 +105,13 @@ describe User do
                 change_user.username = 'edi'
                 change_user.email = 'edi@mail.co'
                 
-
                 user = User.new
                 user.id = 1
                 
                 mock_client = double
                 allow(Mysql2::Client).to receive(:new).and_return(mock_client)
-                expect(mock_client).to receive(:query).with("select * from users where id = '#{user.id}'").and_return(user)
                 expect(mock_client).to receive(:query).with("update users set `username`= '#{change_user.username}', `email` = '#{change_user.email}' where id = '#{user.id}'").and_return(true)
-                user.find(1).update(change_user)
+                user.update(user.id, change_user)
             end
         end
     end
@@ -122,9 +124,8 @@ describe User do
                 
                 mock_client = double
                 allow(Mysql2::Client).to receive(:new).and_return(mock_client)
-                expect(mock_client).to receive(:query).with("select * from users where id = '#{user.id}'").and_return(user)
                 expect(mock_client).to receive(:query).with("delete from users where id = '#{user.id}'").and_return(true)
-                user.find(1).delete
+                user.destroy(user.id)
             end
         end
     end
