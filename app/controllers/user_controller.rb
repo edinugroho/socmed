@@ -15,4 +15,9 @@ class UserController
         user.bio = params['bio']
         user.save.to_json
     end
+    
+    def show(id)
+        user = User.new
+        user.find(id).to_json
+    end
 end

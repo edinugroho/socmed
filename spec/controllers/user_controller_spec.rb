@@ -62,4 +62,15 @@ describe UserController do
             end
         end
     end
+    
+    describe '#show' do
+        context 'when valid' do
+            it 'respond user' do
+                user_controller = UserController.new
+                response = user_controller.show(1)
+
+                expect(response).to eq(user_controller.show(1))
+            end
+        end
+    end
 end
