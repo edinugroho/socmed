@@ -89,4 +89,15 @@ describe UserController do
             end
         end
     end
+    
+    describe '#delete' do
+        context 'when valid' do
+            it 'respond true' do
+                user_controller = UserController.new
+                response = user_controller.destroy(3)
+
+                expect(response).to eq(true.to_json)
+            end
+        end
+    end
 end

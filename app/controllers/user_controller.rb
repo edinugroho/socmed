@@ -28,4 +28,9 @@ class UserController
         user.bio = params['bio']
         user.update(id, user).to_json
     end
+    
+    def destroy(id)
+        user = User.new
+        user.destroy(id).to_json
+    end
 end

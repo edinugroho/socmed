@@ -26,3 +26,8 @@ put '/user/:id' do
     body = JSON.parse(request.body.read)
     user_controller.update(params['id'], body)
 end
+
+delete '/user/:id' do
+    user_controller = UserController.new
+    user_controller.destroy(params['id'])
+end
