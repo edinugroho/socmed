@@ -40,8 +40,44 @@ This is an API only application with the following stories:
 ### How to run
 
 #### install dependencies 
-    bundler install
+
+```
+bundler install
+```
+
+#### import database 
+
+ - create database
+ - import database from [This SQL](https://github.com/edinugroho/socmed/blob/main/app/db/socmed_db.sql) file
+    ```
+    mysql -u username -p database_name < socmed_db.sql
+    ```
+
+#### set env
+ 
+ - copy .env.examole file to .env
+    ```
+    cp .env.example .env
+    ```
+ - edit inside .env file if use nano for editors use this command
+    ```
+    nano .env
+    ```
+ - adjust to your configuration
+ - exit and save file
+ - import env by this command
+    ```
+    source .env
+    ```
+
 #### run test
-    rspec --pattern=spec/*/*_spec.rb -fd
+
+```
+rspec --pattern=spec/*/*_spec.rb -fd
+```
+
 #### serve app
-    ruby app/main.rb
+
+```
+ruby app/main.rb
+```
