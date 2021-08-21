@@ -1,5 +1,6 @@
 require 'sinatra'
 require_relative '../app/controllers/user_controller.rb'
+require_relative '../app/controllers/post_controller.rb'
 
 get '/' do
     'Welcome'
@@ -30,4 +31,10 @@ end
 delete '/user/:id' do
     user_controller = UserController.new
     user_controller.destroy(params['id'])
+end
+
+post '/post' do
+    post_controller = PostController.new
+    params = JSON.parse(request.body.read) 
+    post_controller.store(params) 
 end
