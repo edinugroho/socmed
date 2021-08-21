@@ -26,9 +26,6 @@ This is an API only application with the following stories:
     - A comment can contain hashtag(s)
     - A hashtag occurrence in a comment is counted in trending hashtags calculation
 
- - As a user, I want to attach things to a post
-    - Three kinds of attachment are allowed: pictures (jpg, png, gif), video (mp4), and file (any other extensions outside of pictures and videos)
-
 ### Prerequisites
 
  - ruby
@@ -37,7 +34,28 @@ This is an API only application with the following stories:
  - rspec
  - simplecov
  
+### Database Schema 
+
+![Database Scheema](/erd.png)
+
 ### How to run
+
+#### clone this repository
+
+ - use https
+ ```
+ git clone https://github.com/edinugroho/socmed.git
+ ```
+ - use ssh
+ ```
+ git clone git@github.com:edinugroho/socmed.git
+ ```
+
+#### go to directory
+
+```
+cd socmed
+```
 
 #### install dependencies 
 
@@ -81,3 +99,7 @@ rspec --pattern=spec/*/*_spec.rb -fd
 ```
 ruby app/main.rb
 ```
+
+### Postman collection
+
+[Postman Collection](https://github.com/edinugroho/socmed/blob/main/Final%20Task%20GenerasiGigih.postman_collection.json)
