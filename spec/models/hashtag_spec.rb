@@ -125,6 +125,25 @@ describe 'Hashtag' do
             end
         end
     end
+    
+    describe '#trending' do
+        context 'when valid' do
+            it 'respond hash of trending hashtag' do
+                hashtag = Hashtag.new
+                hashtags = [{
+                    :id => 1,
+                    :name => "#apa",
+                    :created_at => "2021-08-21 21:58:35 +0700",
+                    :updated_at => "2021-08-21 21:58:35 +0700"
+                }]
+
+                mock_client = double
+                allow(Mysql2::Client).to receive(:new).and_return(mock_client)
+                expect(mock_client).to receive(:query).with("SELECT * FROM hashtags WHERE created_at >= now() - INTERVAL 1 DAY;").and_return(hashtags)
+                hashtag.trending
+            end
+        end
+    end
 
     describe '#all' do
         context 'when valid' do
