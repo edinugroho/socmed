@@ -9,4 +9,9 @@ class PostController
        post.attachment = params['attachment']
        post.save.to_json
    end 
+
+   def find_by_hashtag(params)
+       post = Post.new
+       post.find_by_hashtag(params).to_json
+   end
 end

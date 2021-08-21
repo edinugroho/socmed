@@ -38,3 +38,8 @@ post '/post' do
     params = JSON.parse(request.body.read) 
     post_controller.store(params) 
 end
+
+get '/post/hashtag/:hashtag' do
+    post_controller = PostController.new 
+    post_controller.find_by_hashtag(params['hashtag'])
+end
