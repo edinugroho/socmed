@@ -49,3 +49,9 @@ get '/hashtag/trending' do
     hashtag_controller = HashtagController.new 
     hashtag_controller.trending
 end
+
+post '/comment' do
+    post_controller = PostController.new
+    params = JSON.parse(request.body.read) 
+    post_controller.store(params) 
+end
