@@ -228,6 +228,30 @@ ALTER TABLE `posts`
   ADD CONSTRAINT `posts_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 COMMIT;
 
+INSERT INTO users (username, email, bio) VALUES ('edi', 'edi@mail.co', 'this is bio');
+INSERT INTO users (username, email, bio) VALUES ('dwi', 'dwi@mail.co', 'this is bio');
+INSERT INTO users (username, email, bio) VALUES ('nugroho', 'nugroho@mail.co', 'this is bio');
+
+INSERT INTO hashtags (name) VALUES ('#apa');
+INSERT INTO hashtags (name) VALUES ('#test');
+INSERT INTO hashtags (name) VALUES ('#coba');
+
+INSERT INTO posts (user_id, body, attachment) VALUES (1, 'this is body', 'image.jpg');
+INSERT INTO posts (user_id, body, attachment) VALUES (1, 'this is post #test', 'image.jpg');
+INSERT INTO posts (user_id, body, attachment) VALUES (1, 'this is test #apa #coba', 'image.jpg');
+
+INSERT INTO hashtag_posts (post_id, hashtag_id) VALUES (2,2);
+INSERT INTO hashtag_posts (post_id, hashtag_id) VALUES (3,1);
+INSERT INTO hashtag_posts (post_id, hashtag_id) VALUES (3,3);
+
+INSERT INTO comments (user_id, post_id, body, attachment) VALUES (2, 1, 'comment for first post', 'attachment.pdf');
+INSERT INTO comments (user_id, post_id, body, attachment) VALUES (2, 1, 'comment for first post #coba #apa', 'attachment.pdf');
+INSERT INTO comments (user_id, post_id, body, attachment) VALUES (2, 2, '#test comment for second post', 'attachment.pdf');
+
+INSERT INTO comment_hashtags (comment_id, hashtag_id) VALUES (1,1);
+INSERT INTO comment_hashtags (comment_id, hashtag_id) VALUES (2,3);
+INSERT INTO comment_hashtags (comment_id, hashtag_id) VALUES (3,2);
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
