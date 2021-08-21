@@ -1,6 +1,7 @@
 require 'sinatra'
 require_relative '../app/controllers/user_controller.rb'
 require_relative '../app/controllers/post_controller.rb'
+require_relative '../app/controllers/hashtag_controller.rb'
 
 get '/' do
     'Welcome'
@@ -42,4 +43,9 @@ end
 get '/post/hashtag/:hashtag' do
     post_controller = PostController.new 
     post_controller.find_by_hashtag(params['hashtag'])
+end
+
+get '/hashtag/trending' do
+    hashtag_controller = HashtagController.new 
+    hashtag_controller.trending
 end

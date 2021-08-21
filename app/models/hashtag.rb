@@ -46,6 +46,16 @@ class Hashtag
         true
     end
 
+    def trending
+        client = create_db_client
+        query_results = client.query("SELECT * FROM hashtags WHERE created_at >= now() - INTERVAL 1 DAY;")
+        if query_results == nil
+            nil
+        else
+            query_results.each
+        end
+    end
+
     def valid?
         return false if @name.nil? 
         !!@name.match(/(\#[a-zA-Z0-9]+\b)/)
