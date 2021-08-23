@@ -60,6 +60,23 @@ describe 'Hashtag' do
         end
     end
 
+    describe '#exist' do
+        context 'when exist' do
+            it 'respond id' do
+                hashtag = Hashtag.new
+                hashtag.id = 10
+                hashtag.name = '#existHashtag'
+
+                mock_client = double
+                allow(Mysql2::Client).to receive(:new).and_return(mock_client)
+                expect(mock_client).to receive(:query).with("SELECT id FROM hashtags WHERE name = '#{hashtag.name}' limit 1").and_return(hashtag.id)
+                response = hashtag.exist?
+                
+                expect(response).to eq(hashtag.id)
+            end
+        end
+    end
+
     describe '#find' do
         context 'when invalid' do
             it 'respond nil' do

@@ -56,6 +56,12 @@ class Hashtag
         end
     end
 
+    def exist?
+        client = create_db_client
+        query_results = client.query("SELECT id FROM hashtags WHERE name = '#{@name}' limit 1")
+        query_results
+    end
+
     def valid?
         return false if @name.nil? 
         !!@name.match(/(\#[a-zA-Z0-9]+\b)/)
