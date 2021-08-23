@@ -30,6 +30,17 @@ describe PostController do
 
                 expect(response).to eq(true.to_json)
             end
+            
+            it 'respond true if post with one hashtag' do
+                post_controller = PostController.new
+                post = {
+                    "user_id" => 1,
+                    "body" => 'Lorem ipsum #dolor'
+                }
+                response = post_controller.store(post)
+
+                expect(response).to eq(true.to_json)
+            end
         end
     end
 

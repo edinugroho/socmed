@@ -1,4 +1,6 @@
 require_relative '../../app/db/db_connector.rb'
+require_relative '../../app/models/hashtag.rb'
+require_relative '../../app/models/hashtag_post.rb'
 
 class Post
     attr_accessor :id, :user_id, :body, :attachment
@@ -7,6 +9,17 @@ class Post
         return false unless valid?
         client = create_db_client
         client.query("insert into posts (user_id,body,attachment) values (#{@user_id},'#{@body}','#{@attachment}')")
+        words = @body.split(' ')
+        words.each do |word|
+            hashtag = Hashtag.new
+            hashtag_post = HashtagPost.new
+            hashtag.name = word
+            if hashtag.valid?
+                hashtag_post.post_id = client.last_id
+                hashtag_post.hashtag_id = hashtag.save
+                hashtag_post.save
+            end
+        end
         true
     end
 
