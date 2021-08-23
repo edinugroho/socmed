@@ -59,7 +59,7 @@ class Hashtag
     def exist?
         client = create_db_client
         query_results = client.query("SELECT id FROM hashtags WHERE name = '#{@name}' limit 1")
-        query_results
+        query_results.first["id"]
     end
 
     def valid?
