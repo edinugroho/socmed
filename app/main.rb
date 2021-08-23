@@ -34,6 +34,11 @@ delete '/user/:id' do
     user_controller.destroy(params['id'])
 end
 
+get '/post' do
+    post_controller = PostController.new
+    post_controller.index
+end
+
 post '/post' do
     post_controller = PostController.new
     params = JSON.parse(request.body.read) 

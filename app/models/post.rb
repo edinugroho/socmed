@@ -15,11 +15,7 @@ class Post
         query_results = client.query("select * from posts")
         posts = Array.new
         query_results.each do |data|
-            post = Post.new
-            post.user_id = data.user_id
-            post.body = data.body
-            post.attachment = data.attachment
-            posts.push(post)
+            posts.push(data)
         end
         posts
     end

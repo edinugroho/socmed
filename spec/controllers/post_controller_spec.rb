@@ -7,6 +7,17 @@ describe PostController do
         client.query('SET GLOBAL FOREIGN_KEY_CHECKS=0;')
     end
 
+    describe '#all' do
+        context 'when valid' do
+            it 'respond json all posts' do
+                post_controller = PostController.new
+                response = post_controller.index
+                
+                expect(post_controller.index).to eq(response)
+            end
+        end
+    end
+
     describe '#store' do
         context 'when valid' do
             it 'respond true if no contains hashtag' do
