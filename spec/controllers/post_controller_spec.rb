@@ -1,15 +1,21 @@
 require_relative '../../app/controllers/post_controller.rb'
 
 describe PostController do
+    
+    before do
+        client = create_db_client
+        client.query('SET GLOBAL FOREIGN_KEY_CHECKS=0;')
+    end
+
     describe '#store' do
         context 'when valid' do
             it 'respond true if no contains hashtag' do
                 post_controller = PostController.new
                 post = {
-                    :user_id => 1,
-                    :body => 'Lorem ipsum'
+                    "user_id" => 1,
+                    "body" => 'Lorem ipsum'
                 }
-                response = post_controller.store(post.to_json)
+                response = post_controller.store(post)
 
                 expect(response).to eq(true.to_json)
             end
