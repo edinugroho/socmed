@@ -44,16 +44,18 @@ describe 'Hashtag' do
         end
 
         context 'when valid' do
-            it 'respond true' do
+            it 'respond last inserted id' do
                 hashtag = Hashtag.new
                 hashtag.name = '#hashtag'
+                last_id = 1
 
                 mock_client = double
                 allow(Mysql2::Client).to receive(:new).and_return(mock_client)
-                expect(mock_client).to receive(:query).with("insert into hashtags (name) values ('#{hashtag.name}')").and_return(true)
+                expect(mock_client).to receive(:query).with("insert into hashtags (name) values ('#{hashtag.name}')")
+                expect(mock_client).to receive(:last_id).and_return(last_id)
                 response = hashtag.save
-
-                expect(response).to eq(true)
+                
+                expect(response).to eq(last_id)
             end
         end
     end
