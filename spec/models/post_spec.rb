@@ -128,6 +128,33 @@ describe 'Post' do
         end
     end
 
+    describe '#find_by_hashtag' do
+        context 'when valid' do
+            it 'respond post with containing hashtag' do
+                post = Post.new
+                expect_post = [{
+                    "id": 2,
+                    "user_id": 1,
+                    "body": "this is post #test",
+                    "attachment": "image.jpg",
+                    "created_at": "2021-08-21 21:58:35 +0700",
+                    "updated_at": "2021-08-21 21:58:35 +0700",
+                    "name": "#test"
+                }]
+                hashtag = "test"
+
+                mock_client = double
+                allow(Mysql2::Client).to receive(:new).and_return(mock_client)
+                expect(mock_client).to receive(:query).with("select posts.*, hashtags.name from posts join hashtag_posts on hashtag_posts.post_id = posts.id join hashtags on hashtag_posts.hashtag_id = hashtags.id where hashtags.name = '##{hashtag}';").and_return(expect_post)
+                response = post.find_by_hashtag('test')
+
+                response.each_with_index do |data, index|
+                    expect(expect_post[index]).to eq(data)
+                end
+            end
+        end
+    end
+
     describe '#all' do
         context 'when valid' do
             it 'respond all object post from databases' do

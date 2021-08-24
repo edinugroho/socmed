@@ -61,14 +61,7 @@ class Post
 
     def find_by_hashtag(hashtag)
         client = create_db_client
-        query_results = client.query("
-            select posts.*, hashtags.name from posts
-            join hashtag_posts
-            on hashtag_posts.post_id = posts.id
-            join hashtags
-            on hashtag_posts.hashtag_id = hashtags.id
-            where hashtags.name = '##{hashtag}';    
-        ")
+        query_results = client.query("select posts.*, hashtags.name from posts join hashtag_posts on hashtag_posts.post_id = posts.id join hashtags on hashtag_posts.hashtag_id = hashtags.id where hashtags.name = '##{hashtag}';")
         if query_results == nil
             nil
         else
