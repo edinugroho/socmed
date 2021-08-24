@@ -61,7 +61,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:4567/user/1",
+							"raw": "http://localhost:4567/user/4",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -69,7 +69,7 @@
 							"port": "4567",
 							"path": [
 								"user",
-								"1"
+								"4"
 							]
 						}
 					},
@@ -90,7 +90,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:4567/user/1",
+							"raw": "http://localhost:4567/user/4",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -98,7 +98,7 @@
 							"port": "4567",
 							"path": [
 								"user",
-								"1"
+								"4"
 							]
 						}
 					},
@@ -130,13 +130,48 @@
 			"name": "Post",
 			"item": [
 				{
+					"name": "index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4567/post",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4567",
+							"path": [
+								"post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "create",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"user_id\" : 1,\r\n    \"body\" : \"Lorem ipsum dolor\"\r\n}",
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "body",
+									"value": "this is post with #sads",
+									"type": "text"
+								},
+								{
+									"key": "attachment",
+									"type": "file",
+									"src": "/C:/Users/edinugroho/Downloads/download 81(1).png"
+								},
+								{
+									"key": "user_id",
+									"value": "1",
+									"type": "text"
+								}
+							],
 							"options": {
 								"raw": {
 									"language": "json"
@@ -163,7 +198,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:4567/post/hashtag/test",
+							"raw": "http://localhost:4567/post/hashtag/dolor",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -172,7 +207,7 @@
 							"path": [
 								"post",
 								"hashtag",
-								"test"
+								"dolor"
 							]
 						}
 					},
@@ -189,8 +224,29 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"user_id\" : 1,\r\n    \"post_id\" : 1,\r\n    \"body\" : \"Lorem ipsum dolor\"\r\n}",
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "user_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "post_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "body",
+									"value": "lorem ipsum",
+									"type": "text"
+								},
+								{
+									"key": "attachment",
+									"type": "file",
+									"src": "/C:/Users/edinugroho/Downloads/dashboard.png"
+								}
+							],
 							"options": {
 								"raw": {
 									"language": "json"

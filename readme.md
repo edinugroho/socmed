@@ -25,6 +25,10 @@ This is an API only application with the following stories:
  - As a user, I want to comment on a post
     - A comment can contain hashtag(s)
     - A hashtag occurrence in a comment is counted in trending hashtags calculation
+    
+ - As a user, I want to attach things to a post
+    - Three kinds of attachment are allowed: pictures (jpg, png, gif), video (mp4), and file (any other extensions outside of pictures and videos)
+
 
 ### Prerequisites
 
