@@ -171,8 +171,12 @@ describe 'Hashtag' do
 
                 mock_client = double
                 allow(Mysql2::Client).to receive(:new).and_return(mock_client)
-                expect(mock_client).to receive(:query).with("SELECT * FROM hashtags WHERE created_at >= now() - INTERVAL 1 DAY;").and_return(hashtags)
-                hashtag.trending
+                expect(mock_client).to receive(:query).with("SELECT * FROM hashtags WHERE created_at >= now() - INTERVAL 1 DAY LIMIT 5").and_return(hashtags)
+                response = hashtag.trending
+
+                response.each_with_index do |data, index|
+                    expect(hashtags[index]).to eq(data)
+                end
             end
         end
     end

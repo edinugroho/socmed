@@ -48,7 +48,7 @@ class Hashtag
 
     def trending
         client = create_db_client
-        query_results = client.query("SELECT * FROM hashtags WHERE created_at >= now() - INTERVAL 1 DAY;")
+        query_results = client.query("SELECT * FROM hashtags WHERE created_at >= now() - INTERVAL 1 DAY LIMIT 5")
         if query_results == nil
             nil
         else
