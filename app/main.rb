@@ -57,6 +57,5 @@ end
 
 post '/comment' do
     post_controller = PostController.new
-    params = JSON.parse(request.body.read) 
     post_controller.store(params) 
 end
