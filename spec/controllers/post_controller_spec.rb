@@ -1,4 +1,5 @@
 require_relative '../../app/controllers/post_controller.rb'
+require 'tempfile'
 
 describe PostController do
     
@@ -24,7 +25,11 @@ describe PostController do
                 post_controller = PostController.new
                 post = {
                     "user_id" => 1,
-                    "body" => 'Lorem ipsum'
+                    "body" => 'Lorem ipsum',
+                    'attachment' => {
+                        'filename' => 'filename.jpg',
+                        'tempfile' => Tempfile.new
+                    }
                 }
                 response = post_controller.store(post)
 
@@ -35,7 +40,11 @@ describe PostController do
                 post_controller = PostController.new
                 post = {
                     "user_id" => 1,
-                    "body" => 'Lorem ipsum #dolor'
+                    "body" => 'Lorem ipsum #dolor',
+                    'attachment' => {
+                        'filename' => 'filename.jpg',
+                        'tempfile' => Tempfile.new
+                    }
                 }
                 response = post_controller.store(post)
 
@@ -47,8 +56,9 @@ describe PostController do
     describe '#find_by_hashtag' do
         context 'when valid' do
             it 'respond post with relevant hashtag' do
+                post = double
                 post_controller = PostController.new
-                expect_post = [{
+                expect_post = {
                     "id": 2,
                     "user_id": 1,
                     "body": "this is post #test",
@@ -56,10 +66,12 @@ describe PostController do
                     "created_at": "2021-08-21 21:58:35 +0700",
                     "updated_at": "2021-08-21 21:58:35 +0700",
                     "name": "#test"
-                }]
+                }
+                allow(Post).to receive(:new).and_return(post)
+                expect(post).to receive(:find_by_hashtag).with('test').and_return(expect_post)
                 response = post_controller.find_by_hashtag('test')
-                
-                expect(response).to eq(expect_post.to_json)
+
+                expect(expect_post.to_json).to eq(response)
             end
         end
     end

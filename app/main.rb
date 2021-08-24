@@ -2,6 +2,7 @@ require 'sinatra'
 require_relative '../app/controllers/user_controller.rb'
 require_relative '../app/controllers/post_controller.rb'
 require_relative '../app/controllers/hashtag_controller.rb'
+set :public_folder, Proc.new { File.join(root, "static") }
 
 get '/' do
     'Welcome'
@@ -41,7 +42,6 @@ end
 
 post '/post' do
     post_controller = PostController.new
-    params = JSON.parse(request.body.read) 
     post_controller.store(params) 
 end
 
