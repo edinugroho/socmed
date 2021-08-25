@@ -1,6 +1,19 @@
 require_relative '../../app/models/comment.rb'
 
 describe Comment do
+    describe '#validate' do
+        context 'when invalid' do
+            it 'respond false if user_id nil' do
+                comment = Comment.new
+                comment.post_id = 1
+                comment.body = "This is comment"
+                comment.attachment = "attachment.jpg"
+                response = comment.valid?
+
+                expect(response).to eq(false)
+            end 
+        end
+    end
     describe '#save' do
         context 'when valid' do
             it 'respond true if contain attachment' do

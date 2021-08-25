@@ -25,4 +25,8 @@ class Comment
         end
         true
     end
+
+    def valid?
+        return false if @user_id.to_s.empty?
+    end
 end
