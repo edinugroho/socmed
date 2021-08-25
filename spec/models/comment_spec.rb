@@ -3,7 +3,7 @@ require_relative '../../app/models/comment.rb'
 describe Comment do
     describe '#save' do
         context 'when valid' do
-            it 'respond true' do
+            it 'respond true if not contain attachment' do
                 comment = Comment.new
                 comment.user_id = 1
                 comment.post_id = 1
