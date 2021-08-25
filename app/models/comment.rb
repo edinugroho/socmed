@@ -7,7 +7,11 @@ class Comment
 
     def save
         client = create_db_client
-        client.query("insert into comments (user_id, post_id, body) values (#{@user_id}, #{@post_id}, '#{@body}')")
+        if @attachment.nil? 
+            client.query("insert into comments (user_id, post_id, body) values (#{@user_id}, #{@post_id}, '#{@body}')")
+        else
+            client.query("insert into comments (user_id, post_id, body, attachment) values (#{@user_id}, #{@post_id}, '#{@body}', '#{@attachment}')")
+        end
         words = @body.split(' ')
         words.each do |word|
             hashtag = Hashtag.new
