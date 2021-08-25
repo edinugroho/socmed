@@ -6,6 +6,7 @@ class Comment
     attr_accessor :user_id, :post_id, :body, :attachment
 
     def save
+        return false unless valid? 
         client = create_db_client
         if @attachment.nil? 
             client.query("insert into comments (user_id, post_id, body) values (#{@user_id}, #{@post_id}, '#{@body}')")

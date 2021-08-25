@@ -47,7 +47,20 @@ describe Comment do
             end
         end
     end
+
     describe '#save' do
+        context 'when invalid' do
+            it 'respond false' do
+                comment = Comment.new
+                comment.post_id = 1
+                comment.body = "This is comment"
+                comment.attachment = "attachment.jpg"
+                response = comment.save
+
+                expect(response).to eq(false)
+            end
+        end
+
         context 'when valid' do
             it 'respond true if contain attachment' do
                 comment = Comment.new
