@@ -33,6 +33,19 @@ describe Comment do
                 expect(response).to eq(false)
             end 
         end
+        
+        context 'when valid' do
+            it 'respond true' do
+                comment = Comment.new
+                comment.user_id = 1
+                comment.post_id = 1
+                comment.body = "This is comment"
+                comment.attachment = "attachment.jpg"
+                response = comment.valid?
+
+                expect(response).to eq(true)
+            end
+        end
     end
     describe '#save' do
         context 'when valid' do
