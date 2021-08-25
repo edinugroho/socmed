@@ -8,7 +8,11 @@ class Post
     def save
         return false unless valid?
         client = create_db_client
-        client.query("insert into posts (user_id,body,attachment) values (#{@user_id},'#{@body}','#{@attachment}')")
+        if @attachment.nil? 
+            client.query("insert into posts (user_id,body) values (#{@user_id},'#{@body}')")
+        else
+            client.query("insert into posts (user_id,body,attachment) values (#{@user_id},'#{@body}','#{@attachment}')")
+        end
         words = @body.split(' ')
         words.each do |word|
             hashtag = Hashtag.new

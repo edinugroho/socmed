@@ -54,6 +54,17 @@ describe 'Post' do
                 expect(mock_client).to receive(:query).with("insert into posts (user_id,body,attachment) values (#{post.user_id},'#{post.body}','#{post.attachment}')")
                 post.save
             end
+
+            it 'respond true if not contain attachment' do
+                post = Post.new
+                post.user_id = 1
+                post.body = "post body"
+                
+                mock_client = double
+                allow(Mysql2::Client).to receive(:new).and_return(mock_client)
+                expect(mock_client).to receive(:query).with("insert into posts (user_id,body) values (#{post.user_id},'#{post.body}')")
+                post.save
+            end
         end
     end
 
