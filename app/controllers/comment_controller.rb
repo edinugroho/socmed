@@ -7,12 +7,16 @@ class CommentController
         comment.post_id = params['post_id']
         comment.user_id = params['user_id']
         comment.body = params['body']
-        filename = params['attachment']['filename']
-        file = params['attachment']['tempfile']
-        File.open("app/media/#{filename}", 'wb') do |f|
-            f.write(file.read)
+        
+        if !params['attachment'].nil?
+            filename = params['attachment']['filename']
+            file = params['attachment']['tempfile']
+            File.open("app/media/#{filename}", 'wb') do |f|
+                f.write(file.read)
+            end
+            comment.attachment = "app/media/#{filename}"
         end
-        comment.attachment = "app/media/#{filename}"
+
         comment.save.to_json
     end 
 end
