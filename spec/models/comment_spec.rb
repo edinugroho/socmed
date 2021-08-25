@@ -12,6 +12,16 @@ describe Comment do
 
                 expect(response).to eq(false)
             end 
+            
+            it 'respond false if post_id nil' do
+                comment = Comment.new
+                comment.user_id = 1
+                comment.body = "This is comment"
+                comment.attachment = "attachment.jpg"
+                response = comment.valid?
+
+                expect(response).to eq(false)
+            end 
         end
     end
     describe '#save' do

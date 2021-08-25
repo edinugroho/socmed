@@ -28,5 +28,6 @@ class Comment
 
     def valid?
         return false if @user_id.to_s.empty?
+        return false if @post_id.to_s.empty?
     end
 end
