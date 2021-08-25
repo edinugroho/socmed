@@ -74,6 +74,7 @@ class Post
     end
 
     def valid?
+        return false if @user_id.to_s.empty?
         return false if @body.nil?
         return false if @body.length > 1000
         true

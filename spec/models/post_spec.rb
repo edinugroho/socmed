@@ -26,6 +26,7 @@ describe 'Post' do
 
         context 'when valid' do
             it 'respond true' do
+                @post.user_id = 1
                 @post.body = "post body"
                 response = @post.valid?
                 expect(true).to eq(response)
@@ -37,6 +38,16 @@ describe 'Post' do
         context 'when invalid' do
             it 'respond false' do
                 post = Post.new
+                response = post.save
+                expect(false).to eq(response)
+            end
+            
+            it 'respond false if user_id nil' do
+                post = Post.new
+                
+                post.body = "post body"
+                post.attachment = "attachment.jpg"
+
                 response = post.save
                 expect(false).to eq(response)
             end
